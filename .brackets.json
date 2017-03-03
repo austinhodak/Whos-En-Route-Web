@@ -1,0 +1,10 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Volumes/AH DRIVE/Whos-En-Route-Web/agency/plugins/colorpicker/bootstrap-colorpicker.js",
+        "/Volumes/AH DRIVE/Whos-En-Route-Web/agency/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js",
+        "/Volumes/AH DRIVE/Whos-En-Route-Web/agency/plugins/datatables/dataTables.bootstrap.js",
+        "/Volumes/AH DRIVE/Whos-En-Route-Web/agency/plugins/datatables/dataTables.bootstrap.min.js",
+        "/Volumes/AH DRIVE/Whos-En-Route-Web/agency/plugins/datepicker/bootstrap-datepicker.js",
+        "/Volumes/AH DRIVE/Whos-En-Route-Web/NFIRS/constants.js"
+    ]
+}

@@ -1,0 +1,2821 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Who's En Route?</title>
+		<!-- Tell the browser to be responsive to screen width -->
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+		<link rel="shortcut icon" type="image/png" href="icon.png">
+
+		<!-- Bootstrap 3.3.6 -->
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+		<!-- Ionicons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+		<!-- AdminLTE Skins. Choose a skin from the css/skins
+folder instead of downloading all of them to reduce the load. -->
+		<link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+		<!-- iCheck -->
+		<link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+		<!-- Morris chart -->
+		<link rel="stylesheet" href="plugins/morris/morris.css">
+		<!-- jvectormap -->
+		<link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+		<!-- Date Picker -->
+		<link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+		<!-- Daterange picker -->
+		<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+		<!-- bootstrap wysihtml5 - text editor -->
+		<link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js'></script>
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.24.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.24.0/mapbox-gl.css' rel='stylesheet' />
+
+		<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+		<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+		<script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js"></script>
+		<script type="text/javascript" src="//cdn.aerisjs.com/aeris-interactive/aim-leaflet.js"></script>
+
+		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v2.2.0/mapbox-gl-directions.js'></script>
+		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v2.2.0/mapbox-gl-directions.css' type='text/css' />
+
+		<link media="screen" type="text/css" rel="stylesheet" href="//cdn.aerisjs.com/aeris-interactive/assets/css/default/style.css">
+		<script src="dist/js/jspdf.js"></script>
+		<script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
+		<script type="text/javascript" src="./dist/js/libs/FileSaver.js/FileSaver.js"></script>
+		<script type="text/javascript" src="./dist/js/libs/Blob.js/Blob.js"></script>
+		<script type="text/javascript" src="./dist/js/libs/Blob.js/BlobBuilder.js"></script>
+
+		<script type="text/javascript" src="./dist/js/libs/deflate.js"></script>
+		<script type="text/javascript" src="./dist/js/libs/adler32cs.js/adler32cs.js"></script>
+
+		<script type="text/javascript" src="./dist/js/plugins/addimage.js"></script>
+		<script type="text/javascript" src="./dist/js/plugins/from_html.js"></script>
+		<script type="text/javascript" src="./dist/js/plugins/ie_below_9_shim.js"></script>
+		<script type="text/javascript" src="./dist/js/plugins/svg.js"></script>
+		<script type="text/javascript" src="./dist/js/plugins/split_text_to_size.js"></script>
+		<script type="text/javascript" src="./dist/js/plugins/standard_fonts_metrics.js"></script>
+		<style>
+
+
+		</style>
+	</head>
+
+	<body class="hold-transition skin-red sidebar-mini">
+		<div class="wrapper">
+
+			<header class="main-header">
+				<!-- Logo -->
+				<a href="index2.html" class="logo">
+					<!-- mini logo for sidebar mini 50x50 pixels -->
+					<span class="logo-mini"><b>W</b>E<b>R</b></span>
+					<!-- logo for regular state and mobile devices -->
+					<span class="logo-lg"><b>Who's</b>EnRoute?</span>
+				</a>
+				<!-- Header Navbar: style can be found in header.less -->
+				<nav class="navbar navbar-static-top">
+					<!-- Sidebar toggle button-->
+					<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+						<span class="sr-only">Toggle navigation</span>
+					</a>
+
+					<div class="navbar-custom-menu">
+						<ul class="nav navbar-nav">
+							<!--
+<li class="notifications-menu" id="">
+<a class="" data-toggle="">
+<h3 class="ui white inverted header"><i class="fa fa-wrench"></i>&nbsp; 652</h3>
+</a>
+</li>
+
+<li class="notifications-menu" id="">
+<a class="" data-toggle="">
+<h3 class="ui white inverted header"><i class="fa fa-wrench"></i>&nbsp; 654</h3>
+</a>
+</li>
+-->
+
+
+							<li class="notifications-menu">
+								<a class="" data-toggle="">
+									<h3 class="ui white inverted header" id="clock"></h3>
+								</a>
+							</li>
+
+							<!-- Messages: style can be found in dropdown.less-->
+							<li class="dropdown messages-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-envelope-o"></i>
+									<span class="label label-success"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li class="header">You have 0 messages</li>
+									<li>
+										<!-- inner menu: contains the actual data -->
+										<ul class="menu">
+											<li>
+												<!-- start message -->
+												<a href="#">
+													<div class="pull-left">
+														<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+													</div>
+													<h4>
+														Support Team
+														<small><i class="fa fa-clock-o"></i> 5 mins</small>
+													</h4>
+													<p>Why not buy a new awesome theme?</p>
+												</a>
+											</li>
+											<!-- end message -->
+											<li>
+												<a href="#">
+													<div class="pull-left">
+														<img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+													</div>
+													<h4>
+														AdminLTE Design Team
+														<small><i class="fa fa-clock-o"></i> 2 hours</small>
+													</h4>
+													<p>Why not buy a new awesome theme?</p>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<div class="pull-left">
+														<img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+													</div>
+													<h4>
+														Developers
+														<small><i class="fa fa-clock-o"></i> Today</small>
+													</h4>
+													<p>Why not buy a new awesome theme?</p>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<div class="pull-left">
+														<img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+													</div>
+													<h4>
+														Sales Department
+														<small><i class="fa fa-clock-o"></i> Yesterday</small>
+													</h4>
+													<p>Why not buy a new awesome theme?</p>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<div class="pull-left">
+														<img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+													</div>
+													<h4>
+														Reviewers
+														<small><i class="fa fa-clock-o"></i> 2 days</small>
+													</h4>
+													<p>Why not buy a new awesome theme?</p>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li class="footer"><a href="#">See All Messages</a></li>
+								</ul>
+							</li>
+							<!-- Notifications: style can be found in dropdown.less -->
+							<li class="dropdown notifications-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-bell-o"></i>
+									<span class="label label-warning"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li class="header">You have 0 notifications</li>
+									<li>
+										<!-- inner menu: contains the actual data -->
+										<ul class="menu">
+											<li>
+												<a href="#">
+													<i class="fa fa-users text-aqua"></i> 5 new members joined today
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fa fa-users text-red"></i> 5 new members joined
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fa fa-shopping-cart text-green"></i> 25 sales made
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fa fa-user text-red"></i> You changed your username
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li class="footer"><a href="#">View all</a></li>
+								</ul>
+							</li>
+							<!-- Tasks: style can be found in dropdown.less -->
+							<li class="dropdown messages-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-flag-o"></i>
+									<span class="label label-warning">1</span>
+								</a>
+								<ul class="dropdown-menu">
+									<li class="header">One new update.</li>
+									<li>
+										<!-- inner menu: contains the actual data -->
+										<ul class="menu">
+											<li>
+												<!-- start message -->
+												<a href="#" style="margin-left:0px;">
+													<h4 style="margin-left:0px;">
+														v1.0.1
+														<small><i class="fa fa-clock-o"></i> 11/17</small>
+													</h4>
+													<p style="margin-left:0px;">Member management now available!</p>
+												</a>
+											</li>
+											<!-- end task item -->
+										</ul>
+									</li>
+									<li class="footer">
+										<a href="#">View all</a>
+									</li>
+								</ul>
+							</li>
+							<!-- User Account: style can be found in dropdown.less -->
+							<li class="dropdown user user-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<img src="dist/img/1475214057_supportmale.png" class="user-image" alt="User Image">
+									<span class="hidden-xs user_name">Austin Hodak</span>
+								</a>
+								<ul class="dropdown-menu">
+									<!-- User image -->
+									<li class="user-header">
+										<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+										<p class="user_name">
+										</p>
+									</li>
+									<!-- Menu Body -->
+									<li class="user-body">
+										<div class="row">
+											<div class="col-xs-4 text-center">
+												<a href="#">Followers</a>
+											</div>
+											<div class="col-xs-4 text-center">
+												<a href="#">Sales</a>
+											</div>
+											<div class="col-xs-4 text-center">
+												<a href="#">Friends</a>
+											</div>
+										</div>
+										<!-- /.row -->
+									</li>
+									<!-- Menu Footer-->
+									<li class="user-footer">
+										<div class="pull-left">
+											<a href="#" class="btn btn-default btn-flat">Profile</a>
+										</div>
+										<div class="pull-right">
+											<a href="#" class="btn btn-default btn-flat" id="sign_out">Sign out</a>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<!-- Control Sidebar Toggle Button -->
+							<li>
+								<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</header>
+			<!-- Left side column. contains the logo and sidebar -->
+			<aside class="main-sidebar">
+				<!-- sidebar: style can be found in sidebar.less -->
+				<section class="sidebar">
+					<!-- Sidebar user panel -->
+					<div class="user-panel">
+						<div class="pull-left image">
+							<img src="dist/img/1475214057_supportmale.png" class="img-circle" alt="User Image">
+						</div>
+						<div class="pull-left info" style="height:160px;">
+							<p class="user_name">Austin Hodak</p>
+							<a href="#" id="county_name"><i class="fa fa-circle text-success"></i> </a>
+						</div>
+					</div>
+					<!-- search form -->
+					<form action="#" method="get" class="sidebar-form">
+						<div class="input-group">
+							<input type="text" name="q" class="form-control" placeholder="Search...">
+							<span class="input-group-btn">
+								<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
+					</form>
+					<!-- /.search form -->
+					<!-- sidebar menu: : style can be found in sidebar.less -->
+					<ul class="sidebar-menu">
+						<li class="header">MAIN NAVIGATION</li>
+
+						<li class="active">
+							<a href="#dashboard" id="sidebarDashboard">
+								<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+							</a>
+						</li>
+						<li class="">
+							<a href="#incidents" id="sidebarIncidents">
+								<i class="fa fa-clipboard"></i> <span>Incidents</span>
+							</a>
+						</li>
+						<li class="header" id="agency_header">MANAGEMENT</li>
+						<li class="">
+							<a href="#apparatus" id="sidebarApparatus">
+								<i class="fa fa-ambulance"></i> <span>Apparatus</span>
+							</a>
+						</li>
+						<li class="">
+							<a href="#inventory" id="sidebarInventory">
+								<i class="fa fa-archive"></i> <span>Inventory</span>
+							</a>
+						</li>
+						<li class="">
+							<a href="#members" id="sidebarMembers">
+								<i class="fa fa-users"></i> <span>Members</span>
+							</a>
+						</li>
+					</ul>
+				</section>
+				<!-- /.sidebar -->
+			</aside>
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper" id="content-dashboard">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						Dashboard
+						<small>Control panel</small>
+					</h1>
+					<ol class="breadcrumb">
+						<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+						<li class="active">Dashboard</li>
+					</ol>
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<!-- Small boxes (Stat box) -->
+					<div class="row" style="display:none">
+						<div class="col-md-6">
+							<div class="alert alert-info alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">× 13:00</button>
+								<h4><i class="fa fa-exclamation-triangle"></i> ON SCENE | GARLAND 65</h4>
+								AUSTIN HODAK (GARLAND 65) ON SCENE REPORTING: NO INJURIES - "POSSIBLE SIGN OFFS"
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="alert alert-warning alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">× 12:52</button>
+								<h4><i class="fa fa-exclamation-triangle"></i> TAP REQUEST | GARLAND 65</h4>
+								AUSTIN HODAK (GARLAND 65) REQUESTING ANOTHER TAP.
+							</div>
+						</div>
+					</div>
+					<div class="row" style="display:none">
+						<div class="ui active centered inline text loader" style="margin-bottom:40px;margin-top:20px;">Loading Agencies...</div>
+					</div>
+					<div class="row" id="db_dept_cards">
+
+					</div>
+					<!-- /.row -->
+					<!-- Main row -->
+					<div class="row">
+						<!-- Left col -->
+
+						<section class="col-lg-5 ">
+
+							<div class="box box-widget">
+								<div class="box-header with-border">
+									<h3 class="box-title">Responding</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" style="margin-right:4px" data-toggle="modal" data-target="#notifyModal"><i class="fa fa-bullhorn"></i>
+										</button>
+										<button type="button" class="btn btn-box-tool" style="margin-right:4px" data-toggle="modal" data-target="#respondModal"><i class="fa fa-car"></i>
+										</button>
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body no-padding">
+									<div class="table-responsive">
+										<table class="table no-margin table-striped">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Status</th>
+													<th style="width:100px;display:non">On Scene</th>
+												</tr>
+											</thead>
+											<tbody style="font-size:15px;" id="responding_table_home">
+											</tbody>
+											<tfoot>
+												<tr>
+													<td>
+														<strong>0 Responding</strong>
+													</td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+									<!-- /.table-responsive -->
+								</div>
+								<!-- /.box-body -->
+
+							</div>
+
+							<!-- MUTUAL AID RESPONSE BOX // HIDE IF NO RESPONSE-->
+							<div class="box box-widget" id="" style="display:none">
+								<div class="box-header with-border">
+									<h3 class="box-title">Mutual Aid Responding</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body no-padding">
+									<div class="table-responsive">
+										<table class="table no-margin table-striped">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Status</th>
+													<th style="width:100px;display:non">Department</th>
+												</tr>
+											</thead>
+											<tbody style="font-size:15px;" id="responding_table_home">
+											</tbody>
+											<tfoot>
+												<tr>
+													<td>
+														<strong>0 Responding</strong>
+													</td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+									<!-- /.table-responsive -->
+								</div>
+								<!-- /.box-body -->
+
+							</div>
+
+							<div class="row">
+								<!-- /.box -->
+								<div class="col-md-12">
+									<div class="box box-widget">
+										<div class="box-header with-border">
+											<h3 class="box-title">Messages <i class="fa fa-circle-o-notch fa-spin fa-fw"></i></h3>
+
+											<div class="box-tools pull-right">
+												<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+												</button>
+											</div>
+										</div>
+										<div class="box-body">
+											<ul class="products-list product-list-in-box" style="max-height:250px;overflow:hidden;overflow-y:scroll;" id="messages_list_home">
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="box box-widget">
+										<div class="box-header with-border">
+											<h3 class="box-title">Incidents <i class="fa fa-circle-o-notch fa-spin fa-fw"></i></h3>
+
+											<div class="box-tools pull-right">
+												<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+												</button>
+											</div>
+										</div>
+										<div class="box-body">
+											<ul class="products-list product-list-in-box" style="max-height:250px;overflow:hidden;overflow-y:scroll;" id="incidents_list_home">
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Custom Tabs -->
+							<div class="nav-tabs-custom tab-warning" style="display:none">
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#tab_1" data-toggle="tab">Send Notifications</a></li>
+									<li><a href="#tab_2" data-toggle="tab">Dispatch</a></li>
+									<!--                                    <li><a href="#tab_3" data-toggle="tab">Tab 3</a></li>-->
+									<li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="tab_1">
+										<div class="">
+											<p style="margin-bottom:16px;"><b>Send Notification</b></p>
+											<form class="ui form" method="post">
+												<select name="Send To" multiple="" class="ui field fluid dropdown" id="quickNotifySendToDropdown">
+													<option value="">Send To</option>
+													<option id="all" value="all">All</option>
+												</select>
+												<div class="ui field floating labeled icon dropdown button" id="prefilldropdown">
+													<i class="announcement icon"></i>
+													<span class="text">Pre-Fills</span>
+													<div class="menu">
+														<div class="header">
+															Search Pre-Fills
+														</div>
+														<div class="ui left icon input" style="width:90%">
+															<i class="search icon"></i>
+															<input type="text" name="search" placeholder="Search...">
+														</div>
+														<div class="header">
+															<i class="tags icon"></i> Filter by Tag
+														</div>
+														<div class="item">
+															<div class="ui red empty circular label"></div>
+															Chief Call Communications
+														</div>
+														<div class="item">
+															<div class="ui red empty circular label"></div>
+															Severe Thunderstorm Warning
+														</div>
+														<div class="item">
+															<div class="ui red empty circular label"></div>
+															Tornado Warning
+														</div>
+														<div class="item">
+															<div class="ui blue empty circular label"></div>
+															EMT Needed
+														</div>
+														<div class="item">
+															<div class="ui blue empty circular label"></div>
+															EMR/Second Medical Needed
+														</div>
+														<div class="item">
+															<div class="ui teal empty circular label"></div>
+															Driver Needed
+														</div>
+														<div class="item">
+															<div class="ui green empty circular label"></div>
+															Interior Firefighters Needed
+														</div>
+														<div class="item">
+															<div class="ui green empty circular label"></div>
+															Manpower Needed
+														</div>
+														<div class="item">
+															<div class="ui grey empty circular label"></div>
+															Police Notified
+														</div>
+														<div class="item">
+															<div class="ui grey empty circular label"></div>
+															Acknowledged the Call
+														</div>
+														<div class="item">
+															<div class="ui grey empty circular label"></div>
+															In Service
+														</div>
+														<div class="item">
+															<div class="ui grey empty circular label"></div>
+															Cancel the Call
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<input id="notify_text_form" type="text" class="form-control" name="notifysubject" placeholder="Notification Subject">
+												</div>
+												<div class="form-group">
+													<input type="text" class="form-control" name="notifytext" placeholder="Notification Text">
+												</div>
+												<div class="inline fields">
+													<label>Send Via</label>
+													<div class="field">
+														<div class="ui checkbox">
+															<input type="checkbox" name="frequency" checked="true">
+															<label>Both</label>
+														</div>
+													</div>
+													<div class="field">
+														<div class="ui checkbox">
+															<input type="checkbox" name="frequency">
+															<label>Text Message</label>
+														</div>
+													</div>
+													<div class="field">
+														<div class="ui checkbox">
+															<input type="checkbox" name="frequency">
+															<label>App Notification</label>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="box-footer clearfix">
+											<button type="button" class="pull-right btn btn-default" id="sendEmail">Send
+												<i class="fa fa-arrow-circle-right"></i></button>
+										</div>
+									</div>
+									<!-- /.tab-pane -->
+									<div class="tab-pane" id="tab_2">
+										<!--Quick Dispatch-->
+										<div class="">
+											<p style="margin-bottom:16px;"><b>Dispatch Incident</b></p>
+											<form class="ui form" method="post">
+												<div class="ui field fluid multiple search selection dropdown" id="DispatchAgencyDropdownDiv">
+													<input name="tags" type="hidden">
+													<i class="dropdown icon"></i>
+													<div class="default text">Agencies</div>
+													<div class="menu" id="DispatchAgencyDropdown"></div>
+												</div>
+												<div class="ui field floating labeled icon dropdown button" id="quick_dispatch_prefill">
+													<i class="pencil icon"></i>
+													<span class="text">Incident Type Pre-Fills</span>
+													<div class="menu">
+														<div class="header">
+															Search Pre-Fills
+														</div>
+														<div class="ui left icon input" style="width:90%">
+															<i class="search icon"></i>
+															<input type="text" name="search" placeholder="Search...">
+														</div>
+														<div class="header">
+															<i class="tags icon"></i> Filter by Tag
+														</div>
+														<div class="item">
+															<div class="ui red empty circular label"></div>
+															Structure Fire
+														</div>
+														<div class="item">
+															<div class="ui teal empty circular label"></div>
+															Motor Vehicle Accident
+														</div>
+														<div class="item">
+															<div class="ui teal empty circular label"></div>
+															Traffic Control
+														</div>
+														<div class="item">
+															<div class="ui blue empty circular label"></div>
+															EMS Call
+														</div>
+														<div class="item">
+															<div class="ui green empty circular label"></div>
+															Trees/Wires Down
+														</div>
+													</div>
+												</div>
+												<div class="ui field floating labeled icon dropdown button">
+													<i class="pencil icon"></i>
+													<span class="text">NFIRS Codes</span>
+													<div class="menu" style="overflow:auto;max-height:400px;">
+														<div class="header">
+															Search NFIRS Codes
+														</div>
+														<div class="ui left icon input" style="width:90%">
+															<i class="search icon"></i>
+															<input type="text" name="search" placeholder="Search...">
+														</div>
+														<div class="header">
+															<i class="tags icon"></i> Filter by Category
+														</div>
+														<div class="item">
+															<b>Fire</b>
+														</div>
+														<div class="item">
+															<b>Overpressure Rupture, Explosion, Overheat (no fire)</b>
+														</div>
+														<div class="item">
+															<b>Rescue & Emergency Medical Service Incident</b>
+														</div>
+														<div class="item">
+															<b>Hazardous Condition (No Fire)</b>
+														</div>
+														<div class="item">
+															<b>Service Call</b>
+														</div>
+														<div class="header">
+															Fire, other
+														</div>
+														<div class="item">
+															<span class="ui label">100</span> Fire, other
+														</div>
+														<div class="header">
+															Structure Fire
+														</div>
+														<div class="item">
+															<span class="ui red small label horizontal">111</span> Building Fire
+														</div>
+														<div class="item">
+															<span class="ui red tiny label horizontal">112</span> Fires in structure other than in a building
+														</div>
+														<div class="item">
+															<span class="ui red small label horizontal">113</span> Cooking fire, confined to container
+														</div>
+														<div class="header">
+															Fire in a mobile property used as a fixed structure
+														</div>
+														<div class="item">
+															<span class="ui red small label">120</span> Fire in mobile prop. used as a fixed struc., other
+														</div>
+														<div class="item">
+															<span class="ui red small label">121</span> Fire in mobile home used as fixed residence
+														</div>
+														<div class="item">
+															<span class="ui red small label">122</span> Fire in motor home, camper, recreational vehicle
+														</div>
+														<!--														</tbody>-->
+													</div>
+												</div>
+												<div class="form-group">
+													<input id="dispatch_type_field" type="text" class="form-control" name="notifysubject" placeholder="Incident Type">
+												</div>
+												<div class="form-group">
+													<input type="text" class="form-control" name="notifytext" placeholder="Location">
+												</div>
+												<div class="form-group">
+													<input type="text" class="form-control" name="notifytext" placeholder="Additional Info">
+												</div>
+												<div class="inline fields">
+													<label>Alert Via</label>
+													<div class="field">
+														<div class="ui checkbox">
+															<input type="checkbox" name="frequency" checked="true">
+															<label>Both</label>
+														</div>
+													</div>
+													<div class="field">
+														<div class="ui checkbox">
+															<input type="checkbox" name="frequency">
+															<label>Text Message</label>
+														</div>
+													</div>
+													<div class="field">
+														<div class="ui checkbox">
+															<input type="checkbox" name="frequency">
+															<label>App Notification</label>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="box-footer clearfix">
+											<div class="ui floating labeled icon upward dropdown button blue">
+												<i class="plus icon"></i>
+												<span class="text">Add Units</span>
+												<div class="menu" style="overflow:auto;max-height:400px;">
+													<div class="ui search icon input">
+														<i class="search icon"></i>
+														<input type="text" name="search" placeholder="Search units...">
+													</div>
+													<div class="ui button basic blue input mini">Add From Above</div>
+													<div class="divider"></div>
+													<div class="header">
+														<i class="tags icon"></i> Garland 65
+													</div>
+													<div class="item">
+														<div class="blue circular label ui tiny">ENROUTE</div>
+														Rescue 652
+													</div>
+													<div class="item">
+														Tanker 654
+													</div>
+													<div class="item">
+														Utility 658
+													</div>
+													<div class="item">
+														<div class="green circular label ui tiny">ON SCENE</div>
+														Chief Officer
+													</div>
+													<div class="divider"></div>
+													<div class="header">
+														<i class="calendar icon"></i> Youngsville 61
+													</div>
+													<div class="item">
+														<div class="red circular label ui tiny">OOS</div>
+														Squad 6191
+													</div>
+													<div class="item">
+														Squad 6192
+													</div>
+													<div class="item">
+														Engine 611
+													</div>
+													<div class="item">
+														Engine 612
+													</div>
+													<div class="item">
+														Tanker 614
+													</div>
+													<div class="item">
+														Rescue 617
+													</div>
+													<div class="item">
+														Utility 618
+													</div>
+													<div class="item">
+														Chief Officer
+													</div>
+												</div>
+											</div>
+
+											<button type="button" class="ui labeled icon button blue" id="sendEmail" data-toggle="modal" data-target="#myModal"><i class="clock icon"></i> Add Times</button>
+											<button type="button" class="pull-right btn btn-default" id="sendEmail">Save
+												<i class="fa fa-arrow-circle-right"></i></button>
+											<div style="margin-top:12px;">
+											</div>
+										</div>
+									</div>
+									<!-- /.tab-pane -->
+									<div class="tab-pane" id="tab_3">
+										Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+									</div>
+									<!-- /.tab-pane -->
+								</div>
+								<!-- /.tab-content -->
+							</div>
+							<!-- Modal -->
+							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">Add Dispatch Times</h4>
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<label>Alarm:</label>
+												<input type='text' class="form-control" id='alarmTime' />
+											</div>
+											<div class="form-group">
+												<label>Dispatch:</label>
+												<input type='text' class="form-control" id='dispatchTime' />
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-primary">Save changes</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<!-- Modal -->
+						<div class="modal fade" id="respondModal" tabindex="-1" role="dialog" aria-labelledby="respondModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="respondModalLabel">Respond</h4>
+									</div>
+									<div class="modal-body">
+										<div class="ui field fluid multiple search selection dropdown" id="respondMemberDropdownD">
+											<input name="tags" type="hidden">
+											<i class="dropdown icon"></i>
+											<div class="default text">Members</div>
+											<div class="menu" id="respondMemberDropdown"></div>
+										</div>
+										<div class="row" style="margin-top:8px;">
+											<div class="col-sm-4" style="margin-top:8px" id="respondModalStation">
+												<div class="ui inverted orange button fluid" data-dismiss="modal">Station</div>
+											</div>
+											<div class="col-sm-4" style="margin-top:8px" id="respondModalCR">
+												<div class="ui button fluid" data-dismiss="modal">Can't Respond</div>
+											</div>
+											<div class="col-sm-4" style="margin-top:8px" id="respondModalScene">
+												<div class="ui inverted orange button fluid" data-dismiss="modal">Scene</div>
+											</div>
+											<div class="col-sm-12" style="text-align:center;margin-top:8px"><small>Will respond selected members on click.</small></div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /.Left col -->
+						<!-- right col (We are only adding the ID to make the widgets sortable)-->
+						<section class="col-lg-7 connectedSortable">
+							<div class="alert alert-warning" style="font-size:15px;display:none" id="active_incident_home">
+								<a class="close" aria-hidden="true" style="color:white;opacity:0.9;text-decoration:none">21:09:23</a>
+								<h4 style="font-size:18px;"><i class="icon fa-announcement"></i> PSYCHIATRIC | 395 Hosmer Rd, Pittsfield, PA 16340, USA</h4>
+								Loc:395 HOSMER RUN RD XSt:ROUTE 27 PUNKEY HOLLOW R Grid:G06A Units:ST65 Rmk:REQUESTING EMS TO THE SCENE.
+							</div>
+							<!-- Map box -->
+							<div class="box box-solid bg-white-gradient">
+								<div class="box-header">
+									<!-- tools box -->
+									<div class="pull-right box-tools">
+										<button type="button" class="btn bg-black btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+											<i class="fa fa-minus"></i></button>
+									</div>
+									<!-- /. tools -->
+
+									<i class="fa fa-map-marker text-black"></i>
+
+									<h3 class="box-title text-black" style="">
+										Map
+									</h3>
+								</div>
+								<div class="box-body" style="padding:0px">
+									<div id="map" style="height: 400px; width: 100%;"></div>
+								</div>
+							</div>
+
+							<div id="main_apparatus_list" class="ui labels">
+							</div>
+
+							<!-- Modal -->
+							<div class="modal fade" id="apparatusModal" tabindex="-1" role="dialog" aria-labelledby="apparatusModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="apparatusModalTitle">Rescue 652</h4>
+										</div>
+										<div class="modal-body">
+											<h5 class="ui horizontal divider header">
+												Status
+											</h5>
+											<div class="ui left labeled button" tabindex="0" id="apparatusModalStatusService">
+												<a class="ui basic label blue">
+													In Service
+												</a>
+												<div class="ui icon button blue">
+													<i class="retweet icon"></i>
+												</div>
+											</div>
+											<div class="ui left labeled button" tabindex="0" id="apparatusModalStatusStation">
+												<a class="ui basic label blue">
+													In Station
+												</a>
+												<div class="ui icon button blue">
+													<i class="retweet icon"></i>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<!--											<button type="button" class="button small ui pull-left">Start Inspection</button>-->
+											<div class="ui icon top left pointing dropdown button basic pull-left">
+												<i class="fa-ellipsis-v icon"></i>
+												<div class="menu">
+													<div class="item">
+														<i class="dropdown icon"></i>
+														<span class="text">New</span>
+														<div class="menu">
+															<div class="item">Alert</div>
+															<div class="item">Inspection</div>
+														</div>
+													</div>
+													<div class="divider"></div>
+													<div class="item">
+														Edit...
+													</div>
+												</div>
+											</div>
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-primary">Save changes</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<!-- right col -->
+					</div>
+					<!-- /.row (main row) -->
+					<div class="row" style="display:none">
+						<section class="connectedSortable">
+							<div class="col-md-3" id="">
+								<div class="box box-warning collapsed-box">
+									<div class="box-header with-border">
+										<h4 class="ui header" style="margin-bottom:0px;">MVA-ACCIDENT
+											<div class="sub header blue">MAIN ST/ROUTE 6</div>
+										</h4>
+										<div class="box-tools pull-right center">
+											<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+										</div>
+									</div>
+									<div class="box-body">
+										<div class="ui label teal image" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui" href="">		</i>Rescue 652
+											<div class="detail">13:01</div>
+										</div>
+										<div class="ui label image orange" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">			</i>Utility 658
+											<div class="detail">CREW ENR</div>
+										</div>
+										<div class="ui label image teal" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>Squad 6191
+											<div class="detail">13:05</div>
+										</div>
+										<div class="ui label image red" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>Squad 6192
+											<div class="detail">EMT</div>
+										</div>
+										<div class="ui label image green" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>6510
+											<div class="detail">13:00</div>
+										</div>
+										<div class="ui label image teal" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>6530
+											<div class="detail">STATION</div>
+										</div>
+										<div class="ui label image teal" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>3001
+											<div class="detail">12:55</div>
+										</div>
+										<div class="ui label image teal" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>3002
+											<div class="detail">12:55</div>
+										</div>
+										<div class="ui label image teal" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>CORRY 201
+											<div class="detail">12:55</div>
+										</div>
+										<div class="ui label image teal" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>Squad 5191
+											<div class="detail">13:00</div>
+										</div>
+										<div class="ui label image teal" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>Squad 7391
+											<div class="detail">13:00</div>
+										</div>
+										<div class="ui label image teal" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>7481
+											<div class="detail">13:05</div>
+										</div>
+										<div class="ui label image pink" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>STAT MEDEVAC
+											<div class="detail">13:15 REQUESTED</div>
+										</div>
+										<div class="ui label image blue" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>401
+										</div>
+										<div class="ui label image purple" style="margin-top: 8px;margin-left:0px"><i class="icon remove ui">
+											</i>PSP
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="box box-success collapsed-box">
+									<div class="box-header with-border">
+										<h4 class="ui header" style="margin-bottom:0px;">CHEST PAINS 61/30
+											<div class="sub header blue">701 ROUSE AVE</div>
+										</h4>
+										<div class="box-tools pull-right">
+											<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+										</div>
+									</div>
+									<div class="box-body">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3" id="">
+								<div class="box box-info collapsed-box">
+									<div class="box-header with-border">
+										<h4 class="ui header" style="margin-bottom:0px;">TRAFFIC STOP <span class="ui label tiny red horizontal">WPD-512/514 </span><span class="ui label tiny blue horizontal">WPD-502 </span><span class="ui label tiny blue horizontal">WPD-501 </span><span class="ui label tiny orange horizontal">SH-113 </span><span class="ui label tiny teal horizontal">518 </span>
+											<div class="sub header blue">PENN AVE/HICKORY KWIK FILL</div>
+										</h4>
+										<div class="box-tools pull-right">
+											<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+										</div>
+
+										<div style="margin-top:8px" class="ui labeled button tiny" tabindex="0">
+											<div class="ui red button tiny">
+												<i class="check icon"></i> CODE 4
+											</div>
+											<a class="ui basic red left pointing label">
+												8:43
+											</a>
+										</div>
+									</div>
+									<div class="box-body">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="box box-danger collapsed-box">
+									<div class="box-header with-border">
+										<h4 class="ui header" style="margin-bottom:0px;">WARRANT <span style="margin-left:8px;" class="ui orange tiny horizontal labels">
+											<a class="ui label">SH-104</a>
+											<a class="ui label">SH-105</a>
+											<a class="ui label">SH-107</a>
+											</span><a class="ui label horizontal tiny violet" style="margin-left:0px;margin-top:0px;">PSP 14:00</a>
+											<div class="sub header blue">1234 ROUTE 6</div>
+										</h4>
+										<div class="box-tools pull-right">
+											<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+										</div>
+
+										<div style="margin-top:8px" class="ui labeled button tiny" tabindex="0">
+											<div class="ui red button tiny">
+												<i class="check icon"></i> CODE 4
+											</div>
+											<a class="ui basic red left pointing label">
+												8:43
+											</a>
+										</div>
+									</div>
+									<div class="box-body">
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+
+			<div class="ui modal" id="modal_inventory_sort">
+				<i class="close icon"></i>
+				<div class="header">
+					Profile Picture
+				</div>
+				<div class="image content">
+					<div class="description">
+						<div class="ui header">We've auto-chosen a profile image for you.</div>
+						<p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+						<p>Is it okay to use this photo?</p>
+					</div>
+				</div>
+				<div class="actions">
+					<div class="ui black deny button">
+						Nope
+					</div>
+					<div class="ui positive right labeled icon button">
+						Yep, that's me
+						<i class="checkmark icon"></i>
+					</div>
+				</div>
+			</div>
+
+			<!-- CHANGES ADDITION: INCIDENTS PAGE-->
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper" style="display:none" id="content-incidents">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						Incidents
+						<small>Home</small>
+					</h1>
+					<ol class="breadcrumb" style="padding-top:0px">
+						<div class="ui small button" id="content-incidents-addButton" style="margin-right:16px">New Incident</div>
+						<div class="ui primary red small button" id="content-incidents-saveButton" style="display:one">Save Incident</div>
+					</ol>
+				</section>
+
+				<!-- Main content -->
+				<section class="content" style="padding-bottom:0px;min-height:0px;">
+					<!-- Main row -->
+					<div class="row">
+						<!-- Left col -->
+						<section class="col-lg-12 ">
+
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Incidents</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body no-padding">
+									<div class="table-responsive">
+										<table class="table table-bordered table-hover table-striped">
+											<tbody id="incidents_table">
+											</tbody>
+										</table>
+									</div>
+									<!-- /.table-responsive -->
+								</div>
+								<!-- /.box-body -->
+							</div>
+						</section>
+					</div>
+				</section>
+				<!-- /.content -->
+
+				<!-- CHANGES ADD NEW INCIDENT PAGE -->
+				<!-- Main content -->
+				<section class="content" style="display:none" id="newIncidentContent">
+					<!-- Main row -->
+					<div class="row">
+						<!-- Left col -->
+						<section class="col-lg-12 ">
+							<div class="box box-success">
+								<div class="box-header with-border">
+									<h3 class="box-title">Basic Info</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<form class="ui form" id="IA_NFIRS1000">
+										<div class="five fields">
+											<div class="field">
+												<label>FDID*</label>
+												<input name="FDID" type="text" placeholder="FDID" value="62065" readonly="">
+											</div>
+											<div class="field">
+												<label>State*</label>
+												<input name="STATE" type="text" value="PA" readonly="">
+											</div>
+											<div class="field">
+												<label>Date*</label>
+												<input name="DATE" id="NFIRSIncidentDate" type="text" placeholder="Date">
+											</div>
+											<div class="field">
+												<label>Incident Number*</label>
+												<div class="ui labeled input">
+													<div class="ui label">
+														2016 -
+													</div>
+													<input name="INCIDENTNUM" type="text" placeholder="#">
+												</div>
+											</div>
+											<div class="field">
+												<label>Dispatch Run #</label>
+												<input type="text" placeholder="Dispatch #">
+											</div>
+										</div>
+										<div class="fields">
+											<div class="field">
+												<label><br></label>
+												<div class="ui floating labeled icon dropdown button" id="newIncidentTypeDropdown">
+													<i class="pencil icon"></i>
+													<span class="text">NFIRS Codes</span>
+													<div class="menu" style="overflow:auto;max-height:400px;">
+														<div class="header">
+															Search NFIRS Codes
+														</div>
+														<div class="ui left icon input" style="width:90%">
+															<i class="search icon"></i>
+															<input type="text" name="search" placeholder="Search...">
+														</div>
+														<div class="header">
+															<i class="tags icon"></i> Filter by Category
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="field">
+												<label>Aid Given or Received</label>
+												<select class="ui dropdown">
+													<option selected value="0">None</option>
+													<option value="1">Automatic Aid Given</option>
+													<option value="2">Automatic Aid Received</option>
+													<option value="3">Mutual Aid Given</option>
+													<option value="4">Mutual Aid Received</option>
+													<option value="5">Other Aid Received</option>
+												</select>
+											</div>
+											<div class="field">
+												<label>Hazmat Released</label>
+												<select class="ui dropdown">
+													<option value="1">Natural gas: slow leak, no evac. or HazMat actions </option>
+													<option value="2">Propane gas - Less than a 21 lb. tank </option>
+													<option value="3">Gasoline - vehicle fuel tank or portable container </option>
+													<option value="4">Kerosene - fuel-burning equipment/portable storage </option>
+													<option value="5">Diesel fuel/fuel oil - vehicle fuel tank/portable </option>
+													<option value="6">Household/office solvent or chemical spill </option>
+													<option value="7">Motor oil - from engine or portable container </option>
+													<option value="8">Paint - spills less than 55 gallons </option>
+													<option value="0">Special HazMat actions required or spill >= 55 gal. </option>
+													<option selected value="N">None </option>
+												</select>
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- /.box-body -->
+							</div>
+						</section>
+						<section class="col-lg-12 ">
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Address</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<form class="ui form" id="IA_NFIRS1010">
+										<div class="fields">
+											<div class="field">
+												<label>Location Type*</label>
+												<select class="ui dropdown">
+													<option value="">None </option>
+													<option value="1">Street Address</option>
+													<option value="2">Intersection</option>
+													<option value="3">In front of</option>
+													<option value="4">Rear of</option>
+													<option value="5">Adjacent to</option>
+													<option value="6">Directions</option>
+												</select>
+											</div>
+											<div class="field">
+												<label>Property Use*</label>
+												<div class="ui selection dropdown" tabindex="0" id="newIncidentPropertyUsee">
+													<input name="propertyUse" type="hidden" value="NNN">
+													<div class="default text">Property Use</div>
+													<i class="dropdown icon"></i>
+													<div class="menu" tabindex="-1">
+														<div class="header">
+															Search Property Use Codes
+														</div>
+														<div class="ui left icon input" style="width:100%">
+															<i class="search icon"></i>
+															<input type="text" name="search" placeholder="Search...">
+														</div>
+														<div class="header">
+															<i class="tags icon"></i> Filter by Category
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="field">
+												<label>Gender</label>
+												<div class="ui selection dropdown" tabindex="0" id="newIncidentPropertyUse">
+													<input name="gender" type="hidden">
+													<div class="default text">Gender</div>
+													<i class="dropdown icon"></i>
+													<div class="menu" tabindex="-1">
+														<div class="item" data-value="male">Male</div>
+														<div class="item" data-value="female">Female</div>
+													</div>
+												</div>
+											</div>
+											<div class="field">
+												<label>Mixed Use Property</label>
+												<select class="ui dropdown">
+													<option value="NN">None </option>
+													<option value="10">Assembly use</option>
+													<option value="20">Educational use</option>
+													<option value="33">Medical use</option>
+													<option value="40">Residential use</option>
+													<option value="51">Row of stores</option>
+													<option value="53">Enclosed mall</option>
+													<option value="58">Business and residential use</option>
+													<option value="59">Office use</option>
+													<option value="60">Industrial use</option>
+													<option value="63">Military use</option>
+													<option value="65">Farm use</option>
+													<option value="00">Mixed use, other</option>
+													<option value="NN">Not mixed use</option>
+												</select>
+											</div>
+										</div>
+										<div class="fields">
+											<div class=" field">
+												<label>Number/Milepost</label>
+												<input type="number" placeholder="Number">
+											</div>
+											<div class="field">
+												<label>Prefix</label>
+												<select class="ui dropdown">
+													<option value="n">None</option>
+													<option value="E">East</option>
+													<option value="N">North</option>
+													<option value="S">South</option>
+													<option value="W">West</option>
+													<option value="NE">Northeast</option>
+													<option value="NW">Northwest</option>
+													<option value="SE">Southeast</option>
+													<option value="SW">Southwest</option>
+												</select>
+											</div>
+											<div class="six wide field">
+												<label>Street or Highway*</label>
+												<input type="text" placeholder="Street">
+											</div>
+											<div class="field">
+												<label>Street Type</label>
+												<select class="ui dropdown" id="newIncidentStreetType">
+													<option value="">None </option>
+												</select>
+											</div>
+											<div class=" field">
+												<label>Prefix</label>
+												<select class="ui dropdown">
+													<option value="n">None</option>
+													<option value="E">East</option>
+													<option value="N">North</option>
+													<option value="S">South</option>
+													<option value="W">West</option>
+													<option value="NE">Northeast</option>
+													<option value="NW">Northwest</option>
+													<option value="SE">Southeast</option>
+													<option value="SW">Southwest</option>
+												</select>
+											</div>
+											<div class="field">
+												<label>Apt #</label>
+												<input type="text" placeholder="Apt #">
+											</div>
+										</div>
+										<div class="fields">
+											<div class="three wide field">
+												<label>City*</label>
+												<input type="text" placeholder="City">
+											</div>
+											<div class="four wide field">
+												<label>State*</label>
+												<select class="ui dropdown" id="newIncidentStreetType">
+													<option value="">State</option>
+													<option value="AL">Alabama</option>
+													<option value="AK">Alaska</option>
+													<option value="AZ">Arizona</option>
+													<option value="AR">Arkansas</option>
+													<option value="CA">California</option>
+													<option value="CO">Colorado</option>
+													<option value="CT">Connecticut</option>
+													<option value="DE">Delaware</option>
+													<option value="DC">District Of Columbia</option>
+													<option value="FL">Florida</option>
+													<option value="GA">Georgia</option>
+													<option value="HI">Hawaii</option>
+													<option value="ID">Idaho</option>
+													<option value="IL">Illinois</option>
+													<option value="IN">Indiana</option>
+													<option value="IA">Iowa</option>
+													<option value="KS">Kansas</option>
+													<option value="KY">Kentucky</option>
+													<option value="LA">Louisiana</option>
+													<option value="ME">Maine</option>
+													<option value="MD">Maryland</option>
+													<option value="MA">Massachusetts</option>
+													<option value="MI">Michigan</option>
+													<option value="MN">Minnesota</option>
+													<option value="MS">Mississippi</option>
+													<option value="MO">Missouri</option>
+													<option value="MT">Montana</option>
+													<option value="NE">Nebraska</option>
+													<option value="NV">Nevada</option>
+													<option value="NH">New Hampshire</option>
+													<option value="NJ">New Jersey</option>
+													<option value="NM">New Mexico</option>
+													<option value="NY">New York</option>
+													<option value="NC">North Carolina</option>
+													<option value="ND">North Dakota</option>
+													<option value="OH">Ohio</option>
+													<option value="OK">Oklahoma</option>
+													<option value="OR">Oregon</option>
+													<option value="PA">Pennsylvania</option>
+													<option value="RI">Rhode Island</option>
+													<option value="SC">South Carolina</option>
+													<option value="SD">South Dakota</option>
+													<option value="TN">Tennessee</option>
+													<option value="TX">Texas</option>
+													<option value="UT">Utah</option>
+													<option value="VT">Vermont</option>
+													<option value="VA">Virginia</option>
+													<option value="WA">Washington</option>
+													<option value="WV">West Virginia</option>
+													<option value="WI">Wisconsin</option>
+													<option value="WY">Wyoming</option>
+												</select>
+											</div>
+											<div class="two wide field">
+												<label>Zip Code*</label>
+												<div class="ui input">
+													<input type="number" placeholder="Zip Code">
+												</div>
+											</div>
+											<div class="seven wide field">
+												<label>Cross Street, Directions or National Grid</label>
+												<input type="text" placeholder="30 Characters Max">
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- /.box-body -->
+							</div>
+						</section>
+						<section class="col-lg-12">
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Times</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="box-body">
+									<div class="ui form">
+										<div class="fields">
+											<div class="four wide field">
+												<label>Alarm Date/Time</label>
+												<input type="text" id="newIncidentTimesAlarm">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.INCIDENT PAGE -->
+
+
+			<!-- CHANGES ADDITION: MEMBERS PAGE-->
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper" style="display:none" id="content-members">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						Members
+						<small>Home</small>
+					</h1>
+					<ol class="breadcrumb" style="padding-top:0px">
+						<div class="ui small button" id="content-members-addButton" style="margin-right:16px">New Member</div>
+						<div id="content-member-buttons" style="display:none;margin-right:16px">
+							<div class="ui small button" id="content-members-discardButton">Discard Changes</div>
+							<div class="ui primary red small buttons" id="content-member-saveButton">
+								<div class="ui button">Save Member</div>
+								<div class="ui floating dropdown icon button">
+									<i class="dropdown icon"></i>
+									<div class="menu">
+										<div class="item">Save Only</div>
+										<div class="item">Save for NFIRS</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ol>
+				</section>
+
+				<!-- Main content -->
+				<section class="content" style="padding-bottom:0px;min-height:0px;" id="membersListContent">
+					<!-- Main row -->
+					<div class="row">
+						<!-- Left col -->
+						<section class="col-lg-6">
+
+							<div class="box box-widget">
+								<div class="box-header with-border">
+									<h3 class="box-title">Members <i class="fa fa-circle-o-notch fa-spin fa-fw"></i></h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool"><i class="fa fa-refresh"></i>
+										</button>
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body no-padding">
+									<div class="table-responsive">
+										<table class="table table-bordered table-hover table-striped">
+											<tbody id="members_table">
+											</tbody>
+										</table>
+									</div>
+									<!-- /.table-responsive -->
+								</div>
+								<!-- /.box-body -->
+								<div class="box-footer">
+									<h5>0 Members</h5>
+								</div>
+							</div>
+						</section>
+						<section class="col-md-6">
+							<div class="box box-widget widget-user">
+								<div class="box-body">
+									<div class="row">
+										<div class="col-sm-4 border-right">
+											<div class="description-block">
+												<h5 class="description-header" id="membersHomeStatsTotal">0</h5>
+												<span class="description-text">Members</span>
+											</div>
+											<!-- /.description-block -->
+										</div>
+										<!-- /.col -->
+										<div class="col-sm-4 border-right">
+											<div class="description-block">
+												<h5 class="description-header">0</h5>
+												<span class="description-text">Active this month</span>
+											</div>
+											<!-- /.description-block -->
+										</div>
+										<!-- /.col -->
+										<div class="col-sm-4">
+											<div class="description-block">
+												<h5 class="description-header">0</h5>
+												<span class="description-text">hours</span>
+											</div>
+											<!-- /.description-block -->
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-- /.row -->
+								</div>
+							</div>
+						</section>
+					</div>
+				</section>
+				<!-- /.content -->
+
+				<!-- CHANGES ADD NEW MEMBERS PAGE -->
+				<!-- Main content -->
+				<section class="content" style="display:none" id="newMembersContent">
+					<!-- Main row -->
+					<div class="row">
+						<!-- Left col -->
+						<section class="col-lg-6">
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Basic Info</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<form class="ui form" id="memberEditBasicForm">
+										<div class="fields">
+											<div class="seven wide field">
+												<label>First Name*</label>
+												<input name="FIRST_NAME" type="text" placeholder="First Name">
+											</div>
+											<div class="two wide field">
+												<label>Middle Initial</label>
+												<input name="MIDDLE_NAME" type="text" placeholder="MI">
+											</div>
+											<div class="seven wide field">
+												<label>Last Name*</label>
+												<input name="LAST_NAME" type="text" placeholder="Last Name">
+											</div>
+										</div>
+										<div class="three fields">
+											<div class="field">
+												<label>Gender</label>
+												<select class="ui dropdown" name="GENDER">
+													<option value="">Gender</option>
+													<option value="Male">Male</option>
+													<option value="Female">Female</option>
+												</select>
+											</div>
+											<div class="field">
+												<label id="newMemberDOB">Date of Birth</label>
+												<input name="DOB" type="text" placeholder="MM/DD/YYYY">
+											</div>
+											<div class="field">
+												<label id="newMemberDOB">Personnel ID</label>
+												<input name="PERSONNEL_ID" type="text" placeholder="Personnel ID">
+											</div>
+										</div>
+										<div class="equal width fields">
+											<div class="field">
+												<label>Driver's License #</label>
+												<input name="DL_NUM" type="number" placeholder="Driver's License #">
+											</div>
+										</div>
+										<h4 class="ui dividing header">Account Information</h4>
+										<div class="ui slider checkbox" id="memberEditCreateAccount">
+											<input type="checkbox">
+											<label>Create account for this member.</label>
+										</div>
+										<div class="equal width fields" id="memberEditCreateAccountDiv" style="display:none">
+											<div class="field">
+												<label>Email*</label>
+												<input name="EMAIL" type="email" placeholder="Email">
+											</div>
+											<div class="field">
+												<label>Password*</label>
+												<input name="PASSWORD" type="password" placeholder="Password">
+											</div>
+										</div>
+
+									</form>
+								</div>
+								<div class="ui bottom attached warning message" id="memberEditAccountMessage">
+									<i class="icon fa"></i> This member will not be able to use the apps to respond (even text-to-respond) unless you create an account.
+								</div>
+								<!-- /.box-body -->
+							</div>
+
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Contact Info</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus-circle"></i>
+										</button>
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<form class="ui form" id="memberEditContactInfo">
+										<div class="equal width fields">
+											<div class="field">
+												<label>Home Phone</label>
+												<input name="PHONE_HOME" type="text" placeholder="(123) 456-7890">
+											</div>
+											<div class="field">
+												<label>Mobile Phone</label>
+												<input name="PHONE_MOBILE" type="text" placeholder="(123) 456-7890">
+											</div>
+											<div class="field">
+												<label>Work Phone</label>
+												<input name="PHONE_WORK" type="text" placeholder="(123) 456-7890">
+											</div>
+										</div>
+										<div class="equal width fields">
+											<div class="field">
+												<div class="ui slider checkbox">
+													<input type="radio" checked="checked" name="CONTACTPRIMARY[]" value="HOME">
+													<label>Primary</label>
+												</div>
+											</div>
+											<div class="field">
+												<div class="ui slider checkbox">
+													<input type="radio" name="CONTACTPRIMARY[]" value="MOBILE">
+													<label>Primary</label>
+												</div>
+											</div>
+											<div class="field">
+												<div class="ui slider checkbox">
+													<input type="radio" name="CONTACTPRIMARY[]" value="WORK">
+													<label>Primary</label>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- /.box-body -->
+
+							</div>
+							<!-- NOTIFICATION BOX -->
+							<div class="box" id="memberEditNotificationBox">
+								<div class="box-header with-border">
+									<h3 class="box-title">Notification Settings</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<form class="ui form" id="memberEdit_NotificationSettings">
+										<h4 class="ui horizontal divider header" id="memberEdit_NotificationSettings_H4">
+											<i class="fa-bell-o icon"></i> No Notification Settings
+										</h4>
+										<!--
+<h4 class="ui dividing header">Notify Setup 1</h4>
+<div class="equal width fields">
+<div class="field">
+<label>Email or Phone you would like notifications sent to.</label>
+<input name="" type="text" placeholder="Email or Phone">
+</div>
+</div>
+<div class="inline fields">
+<label>Notify For</label>
+<div class="field">
+<div class="ui checkbox">
+<input type="checkbox" name="frequency" checked="checked">
+<label>Everything</label>
+</div>
+</div>
+<div class="field">
+<div class="ui checkbox">
+<input type="checkbox" name="frequency">
+<label>Incidents Only</label>
+</div>
+</div>
+<div class="field">
+<div class="ui checkbox">
+<input type="checkbox" name="frequency">
+<label>Other Notifications Only</label>
+</div>
+</div>
+<div class="ui button circular mini basic">Remove</div>
+<div class="ui button circular mini negative basic">Disable</div>
+</div>
+-->
+									</form>
+								</div>
+								<div class="box-footer clearfix">
+									<button id="member_edit_notification_new" class="ui circular basic button mini black pull-right">New</button>
+								</div>
+								<!-- /.box-body -->
+							</div>
+						</section>
+						<!-- Right col -->
+						<section class="col-lg-6">
+							<div class="row" style="display:none">
+								<section class="col-lg-12">
+									<div class="info-box bg-orange">
+										<div class="info-box-content" style="margin-left:0px;">
+											<span class="info-box-text">Calls Made</span>
+											<span class="info-box-number">80/100 Incidents</span>
+
+											<div class="progress">
+												<div class="progress-bar" style="width: 80%"></div>
+											</div>
+											<span class="progress-description">
+												4/5 This Month
+											</span>
+										</div>
+										<!-- /.info-box-content -->
+									</div>
+								</section>
+							</div>
+
+
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Issued Items <i id="II_spin" class="fa fa-circle-o-notch fa-spin fa-fw"></i></h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="box-body no-padding">
+									<div class="table-responsive">
+										<table class="table table-bordered table-hover table-striped">
+											<tbody id="memberEdit_ItemsTable">
+											</tbody>
+										</table>
+									</div>
+									<!-- /.table-responsive -->
+								</div>
+							</div>
+
+
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Position Info</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="box-body">
+									<form class="ui form" id="memberEditPositionInfo">
+										<div class="equal width fields">
+											<div class="field">
+												<label>Primary Position (Eg. Chief)*</label>
+												<input type="text" placeholder="Primary Position (Eg. Chief)*" name="primaryPosition">
+											</div>
+											<div class="field">
+												<label>Abbreviation*</label>
+												<input type="text" placeholder="Abbreviation*" name="abbreviation">
+											</div>
+										</div>
+										<div class="equal width fields">
+											<div class="six wide field">
+												<label>Ranks</label>
+												<select class="ui dropdown" multiple="" name="ranks">
+													<option value="">Rank</option>
+													<option value="CHIEF">Chief</option>
+													<option value="OFFICER">Officer</option>
+													<option value="FIREFIGHTER">Firefighter</option>
+													<option value="MEDICAL">Medical</option>
+													<option value="DRIVER">Driver</option>
+													<option value="OTHER">Other</option>
+													<option value="FIREPOL">Fire Police</option>
+												</select>
+											</div>
+											<div class="six wide field">
+												<label>Main Rank</label>
+												<select class="ui dropdown" name="mainRank">
+													<option value="">Rank</option>
+													<option value="CHIEF">Chief</option>
+													<option value="OFFICER">Officer</option>
+													<option value="FIREFIGHTER">Firefighter</option>
+													<option value="MEDICAL">Medical</option>
+													<option value="DRIVER">Driver</option>
+													<option value="OTHER">Other</option>
+													<option value="FIREPOL">Fire Police</option>
+												</select>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Address Info</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<form class="ui form" id="memberEditAddressInfo">
+										<h4 class="ui dividing header">Home Address</h4>
+										<div class="equal width fields">
+											<div class="field">
+												<label>Address 1*</label>
+												<input type="text" placeholder="Address 1">
+											</div>
+										</div>
+										<div class="equal width fields">
+											<div class="field">
+												<label>Address 2</label>
+												<input type="text" placeholder="Address 2">
+											</div>
+										</div>
+										<div class="fields">
+											<div class="five wide field">
+												<label>City*</label>
+												<input type="text" placeholder="City">
+											</div>
+											<div class="six wide field">
+												<label>State*</label>
+												<select class="ui dropdown" id="newIncidentStreetType">
+													<option value="">State</option>
+													<option value="AL">Alabama</option>
+													<option value="AK">Alaska</option>
+													<option value="AZ">Arizona</option>
+													<option value="AR">Arkansas</option>
+													<option value="CA">California</option>
+													<option value="CO">Colorado</option>
+													<option value="CT">Connecticut</option>
+													<option value="DE">Delaware</option>
+													<option value="DC">District Of Columbia</option>
+													<option value="FL">Florida</option>
+													<option value="GA">Georgia</option>
+													<option value="HI">Hawaii</option>
+													<option value="ID">Idaho</option>
+													<option value="IL">Illinois</option>
+													<option value="IN">Indiana</option>
+													<option value="IA">Iowa</option>
+													<option value="KS">Kansas</option>
+													<option value="KY">Kentucky</option>
+													<option value="LA">Louisiana</option>
+													<option value="ME">Maine</option>
+													<option value="MD">Maryland</option>
+													<option value="MA">Massachusetts</option>
+													<option value="MI">Michigan</option>
+													<option value="MN">Minnesota</option>
+													<option value="MS">Mississippi</option>
+													<option value="MO">Missouri</option>
+													<option value="MT">Montana</option>
+													<option value="NE">Nebraska</option>
+													<option value="NV">Nevada</option>
+													<option value="NH">New Hampshire</option>
+													<option value="NJ">New Jersey</option>
+													<option value="NM">New Mexico</option>
+													<option value="NY">New York</option>
+													<option value="NC">North Carolina</option>
+													<option value="ND">North Dakota</option>
+													<option value="OH">Ohio</option>
+													<option value="OK">Oklahoma</option>
+													<option value="OR">Oregon</option>
+													<option value="PA">Pennsylvania</option>
+													<option value="RI">Rhode Island</option>
+													<option value="SC">South Carolina</option>
+													<option value="SD">South Dakota</option>
+													<option value="TN">Tennessee</option>
+													<option value="TX">Texas</option>
+													<option value="UT">Utah</option>
+													<option value="VT">Vermont</option>
+													<option value="VA">Virginia</option>
+													<option value="WA">Washington</option>
+													<option value="WV">West Virginia</option>
+													<option value="WI">Wisconsin</option>
+													<option value="WY">Wyoming</option>
+												</select>
+											</div>
+											<div class="five wide field">
+												<label>Zip Code*</label>
+												<div class="ui input">
+													<input type="number" placeholder="Zip Code">
+												</div>
+											</div>
+										</div>
+										<h4 class="ui dividing header">Work Address *If Applicable</h4>
+										<div class="equal width fields">
+											<div class="field">
+												<label>Workplace Name</label>
+												<input type="text" placeholder="Workplace Name">
+											</div>
+										</div>
+										<div class="equal width fields">
+											<div class="field">
+												<label>Address 1*</label>
+												<input type="text" placeholder="Address 1">
+											</div>
+										</div>
+										<div class="equal width fields">
+											<div class="field">
+												<label>Address 2</label>
+												<input type="text" placeholder="Address 2">
+											</div>
+										</div>
+										<div class="fields">
+											<div class="five wide field">
+												<label>City*</label>
+												<input type="text" placeholder="City">
+											</div>
+											<div class="six wide field">
+												<label>State*</label>
+												<select class="ui dropdown" id="newIncidentStreetType">
+													<option value="">State</option>
+													<option value="AL">Alabama</option>
+													<option value="AK">Alaska</option>
+													<option value="AZ">Arizona</option>
+													<option value="AR">Arkansas</option>
+													<option value="CA">California</option>
+													<option value="CO">Colorado</option>
+													<option value="CT">Connecticut</option>
+													<option value="DE">Delaware</option>
+													<option value="DC">District Of Columbia</option>
+													<option value="FL">Florida</option>
+													<option value="GA">Georgia</option>
+													<option value="HI">Hawaii</option>
+													<option value="ID">Idaho</option>
+													<option value="IL">Illinois</option>
+													<option value="IN">Indiana</option>
+													<option value="IA">Iowa</option>
+													<option value="KS">Kansas</option>
+													<option value="KY">Kentucky</option>
+													<option value="LA">Louisiana</option>
+													<option value="ME">Maine</option>
+													<option value="MD">Maryland</option>
+													<option value="MA">Massachusetts</option>
+													<option value="MI">Michigan</option>
+													<option value="MN">Minnesota</option>
+													<option value="MS">Mississippi</option>
+													<option value="MO">Missouri</option>
+													<option value="MT">Montana</option>
+													<option value="NE">Nebraska</option>
+													<option value="NV">Nevada</option>
+													<option value="NH">New Hampshire</option>
+													<option value="NJ">New Jersey</option>
+													<option value="NM">New Mexico</option>
+													<option value="NY">New York</option>
+													<option value="NC">North Carolina</option>
+													<option value="ND">North Dakota</option>
+													<option value="OH">Ohio</option>
+													<option value="OK">Oklahoma</option>
+													<option value="OR">Oregon</option>
+													<option value="PA">Pennsylvania</option>
+													<option value="RI">Rhode Island</option>
+													<option value="SC">South Carolina</option>
+													<option value="SD">South Dakota</option>
+													<option value="TN">Tennessee</option>
+													<option value="TX">Texas</option>
+													<option value="UT">Utah</option>
+													<option value="VT">Vermont</option>
+													<option value="VA">Virginia</option>
+													<option value="WA">Washington</option>
+													<option value="WV">West Virginia</option>
+													<option value="WI">Wisconsin</option>
+													<option value="WY">Wyoming</option>
+												</select>
+											</div>
+											<div class="five wide field">
+												<label>Zip Code*</label>
+												<div class="ui input">
+													<input type="number" placeholder="Zip Code">
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- /.box-body -->
+							</div>
+						</section>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.MEMBERS PAGE -->
+
+
+
+
+
+
+
+			<!-- CHANGES ADDITION: INVENTORY PAGE-->
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper" style="display:none" id="content-inventory">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						Inventory
+						<small>Home</small>
+					</h1>
+					<ol class="breadcrumb" style="padding-top:0px">
+						<div class="ui small button" id="content-inventory-addButton" style="margin-right:16px">New Item</div>
+						<div id="content-inventory-buttons" style="display:none;margin-right:16px">
+							<div class="ui small button" id="content-inventory-discardButton">Discard Changes</div>
+							<div class="ui primary red small buttons" id="content-inventory-saveButton">
+								<div class="ui button">Save Item</div>
+								<div class="ui floating dropdown icon button">
+									<i class="dropdown icon"></i>
+									<div class="menu">
+										<div class="item">Save Only</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ol>
+				</section>
+
+				<!-- Main content -->
+				<section class="content" style="padding-bottom:0px;min-height:0px;" id="membersListInventory">
+					<!-- Main row -->
+					<div class="row">
+						<!-- Left col -->
+						<section class="col-lg-7">
+
+							<div class="box box-widget" id="allInvItemsBox">
+								<div class="box-header with-border">
+									<h3 class="box-title">All Items <i class="fa fa-circle-o-notch fa-spin fa-fw"></i></h3>
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool ui dropdown" style="outline:0px!important" id="inventory_table_sortList"><i class="fa fa-filter"></i>
+											<div class="menu">
+												<div class="header">
+													<i class="tags icon"></i>
+													Filter by List
+												</div>
+												
+											</div>
+											Filter by List
+										</button>
+										<button type="button" class="btn btn-box-tool ui dropdown" style="outline:0px!important" id="inventory_table_sortLocation"><i class="fa fa-filter"></i>
+											<div class="menu">
+												<div class="header">
+													<i class="tags icon"></i>
+													Filter by Location
+												</div>
+											
+											</div>
+											Filter by Location
+										</button>
+										<button type="button" class="btn btn-box-tool" id="inventory_table_print"><i class="fa fa-print"></i>
+										</button>
+										<button type="button" class="btn btn-box-tool" id="inventory_table_refresh"><i class="fa fa-refresh"></i>
+										</button>
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body no-padding">
+									<div class="table-responsive">
+										<table class="table table-bordered table-hover table-striped">
+											<tbody id="inventory_table_1" style="overflow:auto;">
+											</tbody>
+										</table>
+									</div>
+									<!-- /.table-responsive -->
+								</div>
+								<!-- /.box-body -->
+								<div class="box-footer">
+									<h5>0 Items</h5>
+								</div>
+							</div>
+						</section>
+						<section class="col-md-5">
+							<div class="box box-widget widget-user">
+								<div class="box-header with-border">
+									<h3 class="box-title">Quick Add</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="box-body">
+									<form class="ui form" id="inven_QA_Form">
+										<div class="field">
+											<label>Inventory List</label>
+											<select class="ui dropdown" multiple="" name="list">
+												<option value="">Inventory List</option>
+												<option value="01">Relief Association</option>
+												<option value="02">Gear</option>
+											</select>
+										</div>
+										<div class="two fields">
+											<div class="field">
+												<label>Item Type</label>
+												<input type="text" name="item_type" placeholder="Item Type">
+											</div>
+											<div class="field">
+												<label>Date of Purchase</label>
+												<input style="width:100%" type="text" name="date_of_purchase" id="inven_QA_dop" placeholder="Date of Purchase">
+											</div>
+										</div>
+										<div class="two fields">
+											<div class="field">
+												<label>Unit Cost</label>
+												<input type="text" name="unit_cost" placeholder="Unit Cost">
+											</div>
+											<div class="field">
+												<label>Name of Suppliers</label>
+												<input type="text" name="suppliers" placeholder="Suppliers">
+											</div>
+										</div>
+										<div class="two fields">
+											<div class="field">
+												<label>Serial Number</label>
+												<input type="text" name="serial_number" placeholder="Serial Number">
+											</div>
+											<div class="field">
+												<label>Final Disposition Date</label>
+												<input type="text" name="final_disp_date" placeholder="Final Disposition Date">
+											</div>
+										</div>
+										<div class="field">
+											<div class="field">
+												<label>Other Info</label>
+												<input type="text" name="other_info" placeholder="Other Info">
+											</div>
+										</div>
+										<div class="field">
+											<div class="ui checkbox">
+												<input type="checkbox" tabindex="0" class="hidden" name="truck_inspect">
+												<label>Include in truck inspections, (must select apparatus).</label>
+											</div>
+											&nbsp;&nbsp;&nbsp;
+											<div class="ui checkbox" id="inventory_QA_InspectCheck">
+												<input type="checkbox" tabindex="0" class="hidden" name="mark_inspect">
+												<label>Mark as inspected.</label>
+											</div>
+											&nbsp;&nbsp;&nbsp;
+											<div class="field" id="inventory_QA_InspectNotes" style="display:none">
+												<input type="text" name="inpsection_notes" placeholder="Inspection Notes">
+											</div>
+											<div class="ui checkbox" id="inventory_QA_IssuedMember">
+												<input type="checkbox" tabindex="0" class="hidden" name="member_issued">
+												<label>Issued to Member?</label>
+											</div>
+											&nbsp;&nbsp;&nbsp;
+											<div class="ui scrolling inline dropdown" id="inventory_QA_SelectMember">
+												<div class="text">
+													Select Member
+												</div>
+												<i class="dropdown icon"></i>
+												<div class="menu">
+
+												</div>
+											</div>
+
+										</div>
+									</form>
+									<div class="ui floating labeled icon dropdown button" id="inven_QA_Location">
+										<i class="fa-map-marker icon"></i>
+										<span class="text">Location of Item</span>
+										<div class="menu">
+											<div class="header">
+												Add New Location
+											</div>
+											<div class="ui left icon input">
+												<i class="plus icon"></i>
+												<input type="text" name="search" placeholder="Add New...">
+											</div>
+											<div class="divider"></div>
+										</div>
+									</div>
+									<button class="ui button pull-right blue" id="inven_QA_SAVE">Save</button>
+								</div>
+							</div>
+						</section>
+					</div>
+				</section>
+
+				<!-- /.content -->
+
+
+				<!-- CHANGES ADD NEW MEMBERS PAGE -->
+				<!-- Main content -->
+				<section class="content" style="display:none" id="newInventoryContent">
+					<!-- Main row -->
+					<div class="row">
+						<!-- Left col -->
+						<section class="col-lg-5">
+							<div class="box box-widget widget-user">
+								<div class="box-header with-border">
+									<h3 class="box-title">Item Info</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="box-body">
+									<form class="ui form" id="newInventoryItem_BasicForm">
+										<div class="field">
+											<label>Inventory List</label>
+											<select class="ui dropdown" multiple="" name="list">
+												<option value="">Inventory List</option>
+												<option value="01">Relief Association</option>
+											</select>
+										</div>
+										<div class="two fields">
+											<div class="field">
+												<label>Item Type</label>
+												<input type="text" name="item_type" placeholder="Item Type">
+											</div>
+											<div class="field">
+												<label>Date of Purchase</label>
+												<input style="width:100%" type="text" name="date_of_purchase" id="inven_QA_dop" placeholder="Date of Purchase">
+											</div>
+										</div>
+										<div class="two fields">
+											<div class="field">
+												<label>Unit Cost</label>
+												<input type="text" name="unit_cost" placeholder="Unit Cost">
+											</div>
+											<div class="field">
+												<label>Name of Suppliers</label>
+												<input type="text" name="suppliers" placeholder="Suppliers">
+											</div>
+										</div>
+										<div class="two fields">
+											<div class="field">
+												<label>Serial Number</label>
+												<input type="text" name="serial_number" placeholder="Serial Number">
+											</div>
+											<div class="field">
+												<label>Final Disposition Date</label>
+												<input type="text" name="final_disp_date" placeholder="Final Disposition Date">
+											</div>
+										</div>
+										<div class="field">
+											<div class="field">
+												<label>Other Info</label>
+												<input type="text" name="other_info" placeholder="Other Info">
+											</div>
+										</div>
+										<div class="field">
+											<div class="ui checkbox">
+												<input type="checkbox" tabindex="0" class="hidden" name="truck_inspect">
+												<label>Include in truck inspections, (must select apparatus).</label>
+											</div>
+											&nbsp;&nbsp;&nbsp;
+											<div class="field" id="inventory_QA_InspectNotes" style="display:none">
+												<input type="text" name="inpsection_notes" placeholder="Inspection Notes">
+											</div>
+											<div class="ui checkbox" id="newInventoryItemIssuedMember">
+												<input type="checkbox" tabindex="0" class="hidden" name="member_issued">
+												<label>Issued to Member?</label>
+											</div>
+											&nbsp;&nbsp;&nbsp;
+											<div class="ui scrolling inline dropdown" id="newInventoryItemSelectMember">
+												<div class="text">
+													Select Member
+												</div>
+												<i class="dropdown icon"></i>
+												<div class="menu">
+
+												</div>
+											</div>
+
+										</div>
+									</form>
+									<div class="ui floating labeled icon dropdown button" id="inven_QA_Location">
+										<i class="fa-map-marker icon"></i>
+										<span class="text">Location of Item</span>
+										<div class="menu">
+											<div class="header">
+												Add New Location
+											</div>
+											<div class="ui left icon input">
+												<i class="plus icon"></i>
+												<input type="text" name="search" placeholder="Add New...">
+											</div>
+											<div class="divider"></div>
+										</div>
+									</div>
+									<button class="ui button pull-right blue" id="inven_QA_SAVE">Save</button>
+								</div>
+							</div>
+
+						</section>
+						<!-- Right col -->
+						<section class="col-lg-7">
+							<div class="ui inverted segment">
+								<div class="ui inverted mini four statistics">
+									<div class="statistic inverted blue">
+										<div class="value">
+											01/01/2001
+										</div>
+										<div class="label">
+											purchase date
+										</div>
+									</div>
+									<div class="statistic inverted blue">
+										<div class="value">
+											tanker 654
+										</div>
+										<div class="label">
+											location
+										</div>
+									</div>
+									<div class="statistic inverted blue">
+										<div class="value">
+											65-1001
+										</div>
+										<div class="label">
+											serial number
+										</div>
+									</div>
+									<div class="statistic inverted blue">
+										<div class="value">
+											01/01/2016
+										</div>
+										<div class="label">
+											last inspection
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.INVENTORY PAGE -->
+
+
+			<!-- CHANGES ADDITION: INVENTORY PAGE-->
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper" style="display:none" id="content-apparatus">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						Apparatus
+						<small>Home</small>
+					</h1>
+					<ol class="breadcrumb" style="padding-top:0px">
+						<div class="ui small button" id="content-inventroy-addButton" style="margin-right:16px">New Apparatus</div>
+						<div id="content-inventory-buttons" style="display:none;margin-right:16px">
+							<div class="ui small button" id="content-inventory-discardButton">Discard Changes</div>
+							<div class="ui primary red small buttons" id="content-inventory-saveButton">
+								<div class="ui button">Save Member</div>
+								<div class="ui floating dropdown icon button">
+									<i class="dropdown icon"></i>
+									<div class="menu">
+										<div class="item">Save Only</div>
+										<div class="item">Save for NFIRS</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ol>
+				</section>
+
+				<!-- Main content -->
+				<section class="content" style="padding-bottom:0px;min-height:0px;" id="apparatusList">
+					<!-- Main row -->
+					<div class="row">
+						<!-- Left col -->
+						<section class="col-lg-7">
+
+							<div class="box box-widget" id="allApparatusBox">
+								<div class="box-header with-border">
+									<h3 class="box-title">Apparatus <i class="fa fa-circle-o-notch fa-spin fa-fw"></i></h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" id="inventory_table_print"><i class="fa fa-print"></i>
+										</button>
+										<button type="button" class="btn btn-box-tool"><i class="fa fa-refresh"></i>
+										</button>
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body no-padding">
+									<div class="table-responsive">
+										<table class="table table-bordered table-hover table-striped">
+											<tbody id="apparatus_table_1">
+											</tbody>
+										</table>
+									</div>
+									<!-- /.table-responsive -->
+								</div>
+							</div>
+						</section>
+						<section class="col-md-5">
+
+						</section>
+					</div>
+				</section>
+				<!-- /.content -->
+
+			</div>
+
+
+			<footer class="main-footer">
+				<div class="pull-right hidden-xs">
+					<b>Version</b> 2.3.6
+				</div>
+				<strong>Copyright &copy; 2016.</strong>
+			</footer>
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Create the tabs -->
+				<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+					<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+					<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+				</ul>
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<!-- Home tab content -->
+					<div class="tab-pane" id="control-sidebar-home-tab">
+						<h3 class="control-sidebar-heading">Recent Activity</h3>
+						<ul class="control-sidebar-menu">
+							<li>
+								<a href="javascript:void(0)">
+									<i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+									<div class="menu-info">
+										<h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+										<p>Will be 23 on April 24th</p>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">
+									<i class="menu-icon fa fa-user bg-yellow"></i>
+
+									<div class="menu-info">
+										<h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+										<p>New phone +1(800)555-1234</p>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">
+									<i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+									<div class="menu-info">
+										<h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+										<p>nora@example.com</p>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">
+									<i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+									<div class="menu-info">
+										<h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+										<p>Execution time 5 seconds</p>
+									</div>
+								</a>
+							</li>
+						</ul>
+						<!-- /.control-sidebar-menu -->
+
+						<h3 class="control-sidebar-heading">Tasks Progress</h3>
+						<ul class="control-sidebar-menu">
+							<li>
+								<a href="javascript:void(0)">
+									<h4 class="control-sidebar-subheading">
+										Custom Template Design
+										<span class="label label-danger pull-right">70%</span>
+									</h4>
+
+									<div class="progress progress-xxs">
+										<div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">
+									<h4 class="control-sidebar-subheading">
+										Update Resume
+										<span class="label label-success pull-right">95%</span>
+									</h4>
+
+									<div class="progress progress-xxs">
+										<div class="progress-bar progress-bar-success" style="width: 95%"></div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">
+									<h4 class="control-sidebar-subheading">
+										Laravel Integration
+										<span class="label label-warning pull-right">50%</span>
+									</h4>
+
+									<div class="progress progress-xxs">
+										<div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">
+									<h4 class="control-sidebar-subheading">
+										Back End Framework
+										<span class="label label-primary pull-right">68%</span>
+									</h4>
+
+									<div class="progress progress-xxs">
+										<div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+									</div>
+								</a>
+							</li>
+						</ul>
+						<!-- /.control-sidebar-menu -->
+
+					</div>
+					<!-- /.tab-pane -->
+					<!-- Stats tab content -->
+					<div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+					<!-- /.tab-pane -->
+					<!-- Settings tab content -->
+					<div class="tab-pane" id="control-sidebar-settings-tab">
+						<form method="post">
+							<h3 class="control-sidebar-heading">General Settings</h3>
+
+							<div class="form-group">
+								<label class="control-sidebar-subheading">
+									Report panel usage
+									<input type="checkbox" class="pull-right" checked>
+								</label>
+
+								<p>
+									Some information about this general settings option
+								</p>
+							</div>
+							<!-- /.form-group -->
+
+							<div class="form-group">
+								<label class="control-sidebar-subheading">
+									Allow mail redirect
+									<input type="checkbox" class="pull-right" checked>
+								</label>
+
+								<p>
+									Other sets of options are available
+								</p>
+							</div>
+							<!-- /.form-group -->
+
+							<div class="form-group">
+								<label class="control-sidebar-subheading">
+									Expose author name in posts
+									<input type="checkbox" class="pull-right" checked>
+								</label>
+
+								<p>
+									Allow the user to show his name in blog posts
+								</p>
+							</div>
+							<!-- /.form-group -->
+
+							<h3 class="control-sidebar-heading">Chat Settings</h3>
+
+							<div class="form-group">
+								<label class="control-sidebar-subheading">
+									Show me as online
+									<input type="checkbox" class="pull-right" checked>
+								</label>
+							</div>
+							<!-- /.form-group -->
+
+							<div class="form-group">
+								<label class="control-sidebar-subheading">
+									Turn off notifications
+									<input type="checkbox" class="pull-right">
+								</label>
+							</div>
+							<!-- /.form-group -->
+
+							<div class="form-group">
+								<label class="control-sidebar-subheading">
+									Delete chat history
+									<a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+								</label>
+							</div>
+							<!-- /.form-group -->
+						</form>
+					</div>
+					<!-- /.tab-pane -->
+				</div>
+			</aside>
+			<!-- /.control-sidebar -->
+			<!-- Add the sidebar's background. This div must be placed
+immediately after the control sidebar -->
+			<div class="control-sidebar-bg"></div>
+		</div>
+		<!-- ./wrapper -->
+
+
+		<!-- jQuery 2.2.3 -->
+		<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+		<!-- jQuery UI 1.11.4 -->
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+			$.widget.bridge('uibutton', $.ui.button);
+
+		</script>
+		<!-- Bootstrap 3.3.6 -->
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<!-- Morris.js charts -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+		<script src="plugins/morris/morris.min.js"></script>
+		<!-- Sparkline -->
+		<script src="plugins/sparkline/jquery.sparkline.min.js"></script>
+		<!-- jvectormap -->
+		<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+		<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+		<!-- jQuery Knob Chart -->
+		<script src="plugins/knob/jquery.knob.js"></script>
+		<!-- daterangepicker -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+		<script src="plugins/daterangepicker/daterangepicker.js"></script>
+		<!-- datepicker -->
+		<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+		<!-- Bootstrap WYSIHTML5 -->
+		<script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+		<!-- Slimscroll -->
+		<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script src="plugins/fastclick/fastclick.js"></script>
+		<!-- AdminLTE App -->
+		<script src="dist/js/app.min.js"></script>
+		<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+		<!-- <script src="dist/js/pages/dashboard.js"></script> -->
+		<!-- AdminLTE for demo purposes -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+		<script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+		<script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+		<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+
+		<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+		<script src="semantic/dist/semantic.min.js"></script>
+		<script src="dist/js/demo.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
+
+		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4JePuNGuSts3XHCxtpcE6E_IeVWrkoIc&callback=initMap" async defer></script> -->
+		<script src="constants.js"></script>
+		<script src="incidents.js"></script>
+		<script src="dashboard.js" defer></script>
+
+		<script>
+			// Initialize Firebase
+
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://semantic-ui.com/examples/login.html -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Standard Meta -->
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+	<link rel="stylesheet" href="dist/js/landio.css">
+	<!-- Site Properties -->
+	<title>Agency Login</title>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="login.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+	<script src="semantic/dist/semantic.min.js"></script>
+
+	<script src="dist/js/landio.min.js"></script>
+	<style type="text/css">
+		body>.grid {
+			height: 100%;
+		}
+		
+		.image {
+			margin-top: -100px;
+		}
+		
+		.column {
+			max-width: 450px;
+		}
+
+	</style>
+</head>
+
+<body cz-shortcut-listen="true" class="">
+
+	<header class="jumbotron bg-inverse text-xs-center center-vertically" role="banner" style="background-image: url(dist/img/login_header.jpg);">
+		<div class="container">
+			<div class="ui middle aligned center aligned grid">
+				<div class="column">
+					<h2 class="ui inverted image header">
+						<img src="dist/img/icon.png" class="image">
+						<div class="content">
+							Who's En Route? Agency Login
+						</div>
+					</h2>
+					<form class="ui large form">
+						<div class="ui stacked segment">
+							<div class="field">
+								<div class="ui left icon input">
+									<i class="user icon"></i>
+									<input type="text" name="email" placeholder="E-mail address" id="login_email">
+								</div>
+							</div>
+							<div class="field">
+								<div class="ui left icon input">
+									<i class="lock icon"></i>
+									<input type="password" name="password" placeholder="Password" id="login_password">
+								</div>
+							</div>
+							<div class="ui fluid large blue submit button">Login</div>
+						</div>
+
+						<div class="ui error message"></div>
+
+					</form>
+
+					<div class="ui message">
+						Agency not registered? <a style="color:blue">Learn More!</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+</body>
+
+</html>

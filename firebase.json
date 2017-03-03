@@ -1,0 +1,24 @@
+{
+	"hosting": {
+		"public": "./",
+		"ignore": [
+			"firebase.json",
+			"database-rules.json",
+			"storage.rules"
+		],
+		"cleanUrls": true,
+		"rewrites": [ {
+			"source": "/features",
+			"destination": "/main-features.html"
+		}, {
+			"source": "**",
+			"destination": "/index.html"
+		}, {
+			"source": "/home",
+			"destination": "/index.html"
+		}, {
+			"source": "/dispatches",
+			"destination": "/main-dispatches.html"
+		} ]
+	}
+}
